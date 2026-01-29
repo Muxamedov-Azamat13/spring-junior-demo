@@ -1,4 +1,4 @@
-package ru.gb.springjuniordemo.security;
+package ru.gb.springjuniordemo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
