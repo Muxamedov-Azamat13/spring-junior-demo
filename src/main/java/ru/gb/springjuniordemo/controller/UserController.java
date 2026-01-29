@@ -3,12 +3,17 @@ package ru.gb.springjuniordemo.controller;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.gb.springjuniordemo.dto.RegisterRequest;
 import ru.gb.springjuniordemo.dto.UserRequest;
 import ru.gb.springjuniordemo.dto.UserResponse;
+import ru.gb.springjuniordemo.entity.User;
 import ru.gb.springjuniordemo.service.UserService;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/users")
@@ -31,7 +36,13 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id, Principal principal){
+        User user = userService.findByEmail(principal.getName());
+
+        if (!user.getId().equals(id)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You cannot delete another user");
+        }
+
         userService.delete(id);
     }
 

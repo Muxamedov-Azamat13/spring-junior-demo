@@ -56,6 +56,8 @@ public class UserService {
         repository.delete(findById(id));
     }
 
-
-
+    public User findByEmail(String email){
+        return repository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User with email" + email + "not found!"));
+    }
 }

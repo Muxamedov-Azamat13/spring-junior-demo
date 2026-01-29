@@ -1,6 +1,7 @@
 package ru.gb.springjuniordemo.dto;
 
 import lombok.Getter;
+import ru.gb.springjuniordemo.entity.User;
 
 @Getter
 public class OrderResponse {
